@@ -1,0 +1,57 @@
+.\" $Id: formatshield.8,v 1.0 2008/01/02 10:36:40 Pankaj Kohli $
+.TH FORMATSHIELD 8 "January 2008" "formatshield"
+.SH NAME
+formatshield \- binary rewriting defense against format string attacks
+.SH DESCRIPTION
+.I formatshield 
+protects against format string attacks by dumping context information 
+corresponding to the vulnerable call sites in an ELF binary. Functions
+vulnerable to format string attacks include the printf family, syslog, vsyslog,
+warn/err family.
+.PP
+.I formatshield
+is used by specifying it in the
+.B LD_PRELOAD
+environment variable or in the
+.I /etc/ld.so.preload
+file. This instructs the dynamic linker, ld.so, to preload the
+.I libfshield.so
+dynamic library so it may intercept calls to the functions it protects.
+.PP
+When a program protected by
+.I formatshield
+encounters a user specified format string with format specifier(s) with the a
+context present in the list of contexts of vulnerable call sites in the program, 
+a message is logged to syslog and the process is killed.
+.PP
+.B WARNING\: formatshield
+can be used to protect against compromises due to yet undiscovered
+vulnerabilities in privileged programs but denial of service (DoS) attacks
+are still possible.
+.B Always install security patches provided by your operating system vendor.
+.SH FILES
+.TP
+.I /etc/ld.so.preload
+A file containing a list of shared libraries to be loaded after all others.
+Used to selectively override functions in other shared libraries. Handled
+by
+.IR ld.so (8).
+.TP
+.I /proc/self/maps
+A file containing the currently mapped memory regions of the current process
+and their access permissions.
+.SH ENVIRONMENT
+.I LD_PRELOAD
+See the discussion of
+.I /etc/ld.so.preload
+above.
+.SH EXAMPLES
+.TP
+env LD_PRELOAD=/lib/libfshield.so.1 /usr/sbin/in.ftpd -S
+Start ftpd with format string protection.
+.SH AUTHOR
+Pankaj Kohli <pankaj_kohli@research.iiit.net>
+.SH SEE ALSO
+.BR ld.so (8),
+.BR printf (3),
+.BR syslog (3)

@@ -1,0 +1,7 @@
+cc=@CC@
+DEFINES=@DEFINES@
+
+all:
+	${CC} ${DEFINES} -I.. -Wall -O3 sign.c -o sign ../libmelf.a
+	${CC} ${DEFINES} -I.. -Wall -O3 test.c -o test ../libmelf.a
+	${CC} ${DEFINES} -I.. -Wall -O3 new.c -o new ../libmelf.a

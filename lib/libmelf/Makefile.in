@@ -1,0 +1,37 @@
+CC=gcc
+
+STATICBIN=libmelf.a
+DYNAMICBIN=libmelf.so
+DEBUG=
+DEFINES=@DEFINES@ -DMELF_COMP
+INCLUDES=-I.
+CFLAGS=${DEBUG} ${DEFINES} ${INCLUDES} -Wall -O3
+LFLAGS=${DEBUG} ${DEFINES} ${INCLUDES} -Wall -O3 -o
+LIBS=
+OBJS=melf.o melf_dynamic.o melf_elf.o melf_list.o melf_note.o melf_program.o \
+	  melf_res.o melf_section.o melf_string.o melf_symbol.o melf_symbolTable.o
+
+all: ${OBJS}
+	ar rc ${STATICBIN} ${OBJS} && ranlib ${STATICBIN}
+	@SHAREDEXEC@
+	cd example && make
+	cd tools && make
+
+*.c.${O}:
+	${CC} ${CFLAGS} $*.c
+
+clean:
+	rm -f *.o ${STATICBIN} ${DYNAMICBIN} example/test example/new example/sign tools/elfres config.*
+
+distclean:
+	make clean
+	rm -f Makefile example/Makefile stdelf.h
+
+install: ${OBJS} ${STATICBIN}
+	cp libmelf.a /usr/lib
+	cp libmelf.so /usr/lib
+	cp melf.h /usr/include
+	cp stdelf.h /usr/include
+
+uninstall:
+	rm -f /usr/lib/libmelf.a /usr/lib/libmelf.so /usr/include/melf.h /usr/include/stdelf.h

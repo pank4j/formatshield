@@ -1,0 +1,13 @@
+0.3.0  05/08/2004 Kumar Avijit, Prateek Gupta
+melf.c:
+	Added routine for sorting sections.
+	Modified melf_save()
+	
+0.2.0  06/01/2003
+
+	* Added resource support.
+
+	
+0.1.0  02/22/2003
+
+	* Initial release.

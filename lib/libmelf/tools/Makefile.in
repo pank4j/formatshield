@@ -1,0 +1,5 @@
+cc=@CC@
+DEFINES=@DEFINES@
+
+all:
+	${CC} ${DEFINES} -I.. -Wall -O3 elfres.c -o elfres ../libmelf.a

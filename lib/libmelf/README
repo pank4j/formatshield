@@ -1,0 +1,39 @@
+
+  [------------------------------------------------------------------------]
+  [-- Uninformed Research -- informative information for the uninformed. --]
+  [------------------------------------------------------------------------]
+  [-- Genre  : Development                                               --]
+  [-- Name   : libmelf                                                   --]
+  [-- Desc   : ELF manipulation library                                  --]
+  [-- Url    : http://www.hick.org/code/skape/libmelf                    --]
+  [-- Use    : MANIPULATION                                              --]
+  [------------------------------------------------------------------------]
+  [-- Author : skape (mmiller@hick.org)                                  --]
+  [-- Date   : 02/23/2003                                                --]
+  [------------------------------------------------------------------------]
+
+  [-- Table of contents:                                                 --]
+
+      1) Overview
+      2) License
+
+  [-- 1) Overview                                                        --]
+
+      libmelf was created to provide an easy to use interface for
+      manipulation ELF binary images.  It was also designed with
+      portability in mind.  Currently, libmelf is supported
+      on the following platforms:
+
+         * Linux
+         * Solaris 2.7+
+         * FreeBSD
+         * OpenBSD
+
+  [-- 2) License                                                         --]
+
+      This code is freely distributable with the following stipulations:
+
+         * If the code is modified and redistributed, it must be made
+           clear that the version being distributed is different than
+           the original
+         * Give credit where credit is due.

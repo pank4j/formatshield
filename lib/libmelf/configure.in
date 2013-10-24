@@ -1,0 +1,65 @@
+AC_INIT(acgeneral.m4)
+
+dnl AC_ARG_PROGRAM
+
+AC_PROG_MAKE_SET
+AC_PROG_CC
+
+AC_MSG_CHECKING(this systems operating system)
+AC_CACHE_VAL(cache_sys_os,
+[
+if test "$uname_prog" != "no"; then
+  cache_sys_os="`uname`"
+
+  case "$cache_sys_os" in
+    SunOS)
+      case "`uname -r`" in
+        5.*) cache_sys_os="Solaris";
+      esac
+    ;;
+  esac
+fi
+])
+AC_MSG_RESULT($cache_sys_os)
+
+if test "x$cache_sys_os" = "xSolaris"; then
+	SHAREDEXEC="ld -dy -r -o libmelf.so \${OBJS}"
+else
+	SHAREDEXEC="\${CC} \${FLAGS} -shared -fPIC \${OBJS} -o libmelf.so"
+fi
+
+AC_C_BIGENDIAN()
+
+AC_CHECK_FILE("/usr/include/stdint.h",has_stdint="1")
+AC_CHECK_FILE("/usr/include/sys/int_types.h",has_sys_inttypes="1")
+AC_CHECK_FILE("/usr/include/machine/types.h",has_machine_types="1")
+
+if test "$ac_cv_c_bigendian" = yes; then
+	DEFINES="$DEFINES -DELF_BIG_ENDIAN"
+else
+	DEFINES="$DEFINES -DELF_LITTLE_ENDIAN"
+fi
+
+if test "$has_stdint" = "1"; then
+	INC_STDINT="#include <stdint.h>"	
+fi
+
+if test "$has_sys_inttypes" = "1"; then
+	INC_SYSINTTYPES="#include <sys/int_types.h>"	
+fi
+
+if test "$has_machine_types" = "1"; then
+	INC_MACHINETYPES="#include <machine/types.h>"	
+fi
+
+AC_SUBST(SHAREDEXEC)
+AC_SUBST(LIBPATH)
+AC_SUBST(INCLUDES)
+AC_SUBST(DEFINES)
+AC_SUBST(CC)
+
+AC_SUBST(INC_STDINT)
+AC_SUBST(INC_SYSINTTYPES)
+AC_SUBST(INC_MACHINETYPES)
+
+AC_OUTPUT(Makefile example/Makefile tools/Makefile stdelf.h)
