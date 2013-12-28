@@ -1,4 +1,4 @@
-# [Formatshield](http://www.codepwn.com/2009/06/formatshield.html) release 1.0
+# [Formatshield](http://www.codepwn.com/posts/formatshield/) release 1.0
  
 
 FormatShield is a library that intercepts call to vulnerable functions and uses binary rewriting to defend against format string attacks. It identifies the vulnerable call sites in a running process and dumps the corresponding context information in the ELF binary of the process. Attacks are detected when format specifiers are found at these contexts of the vulnerable call sites.
@@ -19,7 +19,7 @@ void vsyslog(int priority, const char *format, va_list ap)
 
 On detecting an attack, the victim process is killed and a log is written to syslog.
 
-For more info, visit [http://www.codepwn.com/2009/06/formatshield.html](http://www.codepwn.com/2009/06/formatshield.html).
+For more info, visit [http://www.codepwn.com/posts/formatshield/](http://www.codepwn.com/posts/formatshield/).
 
 
 ## Usage
